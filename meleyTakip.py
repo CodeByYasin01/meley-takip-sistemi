@@ -70,8 +70,8 @@ def bakacaz():
 
 
     sonrasi=suan + timedelta(hours=-2)
-    a=sonrasi.strftime("%d/%m/%y %H:%M")
-    b=datetime.strptime(a,"%d/%m/%y %H:%M")
+    a=sonrasi.strftime("%d/%m/%Y %H:%M")
+    b=datetime.strptime(a,"%d/%m/%Y %H:%M")
 
 
 
@@ -81,19 +81,31 @@ def bakacaz():
         else:
             print(f"{lonca} süresi var")
 
-suan=datetime.now()
+
 loncalar={
 
 }
 
-def kayitAl():
-    isim=input("Lonca ismini gir: ")
-    zaman=suan
-    if isim in loncalar[isim]:
-        print(f"{isim} zaten mevcut!")
-    else:
-        loncalar[isim]=zaman
+def kayitAl(isim):
+    suan=datetime.now()
+    zaman=suan.strftime("%d/%m/%Y %H:%M")
+    
+    if isim not in loncalar:
+         loncalar[isim]=[]
 
-    for lonca,zaman in loncalar.items():
-        if lonca>10:
-            loncalar.pop(lonca,zaman[0])
+    loncalar[isim].append(zaman)
+        
+    print("Kayıt yapıldı.")
+
+    if len(loncalar[isim])>10:
+        loncalar[isim].pop(0)
+    time.sleep(2)
+
+
+    
+
+
+isim=input("Lonca ismini giriniz: ")
+for a in range(12):
+    kayitAl(isim)
+print(loncalar)
